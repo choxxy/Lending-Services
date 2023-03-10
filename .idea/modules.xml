@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ApiGateway/ApiGateway.iml" filepath="$PROJECT_DIR$/ApiGateway/ApiGateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CommonService/CommonService.iml" filepath="$PROJECT_DIR$/CommonService/CommonService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LoanOfferService/LoanOfferService.iml" filepath="$PROJECT_DIR$/LoanOfferService/LoanOfferService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MobileWalletService/MobileWalletService.iml" filepath="$PROJECT_DIR$/MobileWalletService/MobileWalletService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NotificationService/NotificationService.iml" filepath="$PROJECT_DIR$/NotificationService/NotificationService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PaymentService/PaymentService.iml" filepath="$PROJECT_DIR$/PaymentService/PaymentService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServiceRegistry/ServiceRegistry.iml" filepath="$PROJECT_DIR$/ServiceRegistry/ServiceRegistry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lending.iml" filepath="$PROJECT_DIR$/.idea/lending.iml" />
+    </modules>
+  </component>
+</project>

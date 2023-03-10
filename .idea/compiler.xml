@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="LoanOfferService" />
+        <module name="MobileWalletService" />
+        <module name="CommonService" />
+        <module name="NotificationService" />
+        <module name="ServiceRegistry" />
+        <module name="ApiGateway" />
+        <module name="PaymentService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ApiGateway" target="17" />
+      <module name="CommonService" target="17" />
+      <module name="LoanOfferService" target="17" />
+      <module name="MobileWalletService" target="17" />
+      <module name="NotificationService" target="17" />
+      <module name="PaymentService" target="17" />
+      <module name="ServiceRegistry" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApiGateway" options="-parameters" />
+      <module name="CommonService" options="-parameters" />
+      <module name="LoanOfferService" options="-parameters" />
+      <module name="MobileWalletService" options="-parameters" />
+      <module name="NotificationService" options="-parameters" />
+      <module name="PaymentService" options="-parameters" />
+      <module name="ServiceRegistry" options="-parameters" />
+    </option>
+  </component>
+</project>
