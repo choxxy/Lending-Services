@@ -1,17 +1,14 @@
 package com.assessment.api.LoanOfferService.api.service;
 
 import com.assessment.CommonService.api.dto.LoanProductDto;
-import com.assessment.CommonService.api.dto.LoanRequestDto;
 
 import java.util.List;
 
-public interface LoanService {
+public interface LoanProductService {
 
     LoanProductDto findById(Long id);
 
-    List<LoanProductDto> findByCondition(long maxLimit);
+    List<LoanProductDto> getLoanLadder(long userLoanLimit);
 
     List<LoanProductDto> findAll();
-
-    List<LoanProductDto> requestLoan(LoanRequestDto loanRequestDto);
 }

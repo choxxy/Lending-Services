@@ -1,10 +1,9 @@
 package com.assessment.api.LoanOfferService.api.service;
 
 import com.assessment.CommonService.api.dto.LoanProductDto;
-import com.assessment.CommonService.api.dto.LoanRequestDto;
-import com.assessment.api.LoanOfferService.api.entity.LoanRequest;
-import com.assessment.api.LoanOfferService.api.mapper.LoanMapper;
-import com.assessment.api.LoanOfferService.api.repository.LoanRepository;
+import com.assessment.api.LoanOfferService.api.entity.LoanProduct;
+import com.assessment.api.LoanOfferService.api.mapper.LoanProductMapper;
+import com.assessment.api.LoanOfferService.api.repository.LoanProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,42 +14,30 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional
-public class LoanServiceImpl implements LoanService {
-    private final LoanRepository repository;
-    private final LoanMapper loanProductMapper;
+public class LoanProductServiceImpl implements LoanProductService {
+    private final LoanProductRepository repository;
+    private final LoanProductMapper mapper;
 
-    public LoanServiceImpl(LoanRepository repository, LoanMapper loanProductMapper) {
+    public LoanProductServiceImpl(LoanProductRepository repository, LoanProductMapper mapper) {
         this.repository = repository;
-        this.loanProductMapper = loanProductMapper;
-    }
-
-    public LoanProductDto findById(Long id) {
-        return loanProductMapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
-    }
-
-    public List<LoanProductDto> findByCondition(long maxLimit) {
-        List<LoanRequest> entities = repository.findAll();
-        return loanProductMapper.toDto(entities);
-    }
-
-
-    public List<LoanProductDto> findAll() {
-        List<LoanRequest> entities = repository.findAll();
-        return loanProductMapper.toDto(entities);
+        this.mapper = mapper;
     }
 
     @Override
-    public List<LoanProductDto> requestLoan(LoanRequestDto loanRequestDto) {
+    public LoanProductDto findById(Long id) {
+        return mapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
+    }
 
-        /* check if user qualify for a loan
-           1. Does not have a loan already
-           2. Wallet is active
-         */
-
-
-
-        return null;
+    @Override
+    public List<LoanProductDto> getLoanLadder(long userLoanLimit) {
+        List<LoanProduct> entities = repository.findByMaxAllowableLimitLessThanEqual(userLoanLimit);
+        return mapper.toDto(entities);
     }
 
 
+    @Override
+    public List<LoanProductDto> findAll() {
+        List<LoanProduct> entities = repository.findAll();
+        return mapper.toDto(entities);
+    }
 }

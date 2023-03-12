@@ -1,22 +1,20 @@
 package com.assessment.api.LoanOfferService.api.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-public class Loan {
+@Table(name = "loan_products")
+public class LoanProduct {
     @Id
     @GeneratedValue
     Long Id;
-    Long maxAllowableLimit;
+    long maxAllowableLimit;
     float interest;
-    int tenure; //Days
+    int tenureInDays; //Days
 }

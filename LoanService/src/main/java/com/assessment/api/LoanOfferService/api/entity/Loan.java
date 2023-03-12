@@ -1,17 +1,29 @@
-package com.assessment.CommonService.api.dto;
+package com.assessment.api.LoanOfferService.api.entity;
 
 import com.assessment.CommonService.api.enums.LoanStatus;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
+
 @Data
-public class LoanDto {
-    private Long Id;
-    private Long loanProductId;
-    private String walletId;
-    private Long requestId;
+@Entity
+@Table(name = "loans")
+public class Loan {
+    @Id
+    @GeneratedValue
+    private Long loanId;
     private Long userId;
-    float amount;
+    private Long loanProductId;
+    private String walletAccountId;
     private float loanAmount;
-    private String entryDateTime;
+    private float interest;
+    private float totalAmount;
+    private Date createdOn;
+    private Date dueDate;
     private LoanStatus status;
+
 }

@@ -1,9 +1,10 @@
 package com.assessment.api.LoanOfferService.api.mapper;
 
-import com.assessment.api.LoanOfferService.api.dto.LoanProductDto;
-import com.assessment.api.LoanOfferService.api.entity.LoanProduct;
+import com.assessment.CommonService.api.dto.LoanDto;
+import com.assessment.CommonService.api.mapper.EntityMapper;
+import com.assessment.api.LoanOfferService.api.entity.Loan;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface LoanProductMapper extends EntityMapper<LoanProductDto, LoanProduct> {
+public interface LoanMapper extends EntityMapper<LoanDto, Loan> {
 }

@@ -1,18 +1,29 @@
 package com.assessment.api.LoanOfferService.api.service;
 
+import com.assessment.CommonService.api.dto.LoanDto;
 import com.assessment.CommonService.api.dto.LoanProductDto;
 import com.assessment.CommonService.api.dto.LoanRequestDto;
-import com.assessment.api.LoanOfferService.api.dto.LoanProductDto;
+import com.assessment.CommonService.api.enums.LoanStatus;
 
 import java.util.List;
 
-public interface LoanRequestService {
+public interface LoanService {
 
-    LoanProductDto findById(Long id);
+    LoanDto findById(long Id);
 
-    List<LoanProductDto> findByCondition(long maxLimit);
+    boolean hasActiveLoan(long userId);
 
-    List<LoanProductDto> findAll();
+    List<LoanDto> findByStatus(LoanStatus status);
+
+    List<LoanDto> findAll();
+
+    LoanDto updateLoan(LoanDto loanDto);
 
     List<LoanProductDto> requestLoan(LoanRequestDto loanRequestDto);
+
+    LoanDto processLoanRequest(LoanRequestDto loanRequestDto);
+
+    public LoanDto createLoan(LoanDto loanDto);
+
+    void updatePaymentStatus(Long loanId);
 }
