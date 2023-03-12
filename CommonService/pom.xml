@@ -21,7 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -44,6 +43,7 @@
 			<artifactId>guava</artifactId>
 			<version>31.1-jre</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

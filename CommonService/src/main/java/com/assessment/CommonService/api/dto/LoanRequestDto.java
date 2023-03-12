@@ -4,10 +4,7 @@ import lombok.Data;
 
 @Data
 public class LoanRequestDto {
-    private String walletId;
-    private String loanProductId;
-    private float loanAmount;
-    private String requestDateTime;
-    private LoanRequestStatus requestStatus;
-    private String message;
+    private long userId;
+    private String walletAccountId;
+    private long loanProductId;
 }

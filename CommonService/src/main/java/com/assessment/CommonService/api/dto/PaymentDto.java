@@ -3,11 +3,15 @@ package com.assessment.CommonService.api.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
-public class PaymentDto{
+public class PaymentDto {
     private Long Id;
     private Long loanId;
-    private String walletId;
-    private String paymentDateTime;
-    private String amount;
+    private String walletAccountId;
+    private Date entryDate;
+    private float amount;
+    private float balance;
+    private Date dueDate;
 }
