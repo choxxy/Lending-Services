@@ -30,31 +30,17 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{loanId}/make-payment")
+    public ResponseEntity<Void> makePayment(@PathVariable("loanId") Long loanId) {
+        paymentService.makePayment(loanId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PaymentDto> findById(@PathVariable("id") Long id) {
         PaymentDto payment = paymentService.findById(id);
         return ResponseEntity.ok(payment);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        Optional.ofNullable(paymentService.findById(id)).orElseThrow(() -> {
-            log.error("Unable to delete non-existent data！");
-            return new ResourceNotFoundException();
-        });
-        paymentService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
 
-    @GetMapping("/page-query")
-    public ResponseEntity<Page<PaymentDto>> pageQuery(PaymentDto paymentDto, @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<PaymentDto> paymentPage = paymentService.findByCondition(paymentDto, pageable);
-        return ResponseEntity.ok(paymentPage);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody @Validated PaymentDto paymentDto, @PathVariable("id") Long id) {
-        paymentService.update(paymentDto, id);
-        return ResponseEntity.ok().build();
-    }
 }

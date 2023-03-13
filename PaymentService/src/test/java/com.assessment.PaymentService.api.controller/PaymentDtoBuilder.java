@@ -2,10 +2,7 @@ package com.assessment.PaymentService.api.controller;
 
 import com.assessment.CommonService.api.dto.PaymentDto;
 
-import java.util.Collections;
-import java.util.List;
-
-public class PaymentBuilder {
+public class PaymentDtoBuilder {
     public static PaymentDto getDto() {
         PaymentDto dto = new PaymentDto();
         dto.setId(1L);

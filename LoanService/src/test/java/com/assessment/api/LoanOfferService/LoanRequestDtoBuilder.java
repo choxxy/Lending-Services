@@ -6,7 +6,7 @@ import com.assessment.CommonService.api.dto.LoanRequestDto;
 public class LoanRequestDtoBuilder {
     public static LoanRequestDto getDto() {
         LoanRequestDto dto = new LoanRequestDto();
-        dto.setUserId(1L);
+        dto.setCustomerId(1L);
         dto.setWalletAccountId("1");
         return dto;
     }

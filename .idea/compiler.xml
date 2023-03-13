@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LoanOfferService" />
         <module name="MobileWalletService" />
         <module name="CommonService" />
         <module name="NotificationService" />
         <module name="ServiceRegistry" />
+        <module name="LoanService" />
         <module name="ApiGateway" />
         <module name="PaymentService" />
       </profile>
@@ -19,7 +19,7 @@
     <bytecodeTargetLevel>
       <module name="ApiGateway" target="17" />
       <module name="CommonService" target="17" />
-      <module name="LoanOfferService" target="17" />
+      <module name="LoanService" target="17" />
       <module name="MobileWalletService" target="17" />
       <module name="NotificationService" target="17" />
       <module name="PaymentService" target="17" />
@@ -30,7 +30,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
       <module name="CommonService" options="-parameters" />
-      <module name="LoanOfferService" options="-parameters" />
+      <module name="LoanService" options="-parameters" />
       <module name="MobileWalletService" options="-parameters" />
       <module name="NotificationService" options="-parameters" />
       <module name="PaymentService" options="-parameters" />

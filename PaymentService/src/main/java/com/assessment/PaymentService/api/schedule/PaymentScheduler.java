@@ -5,18 +5,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DroneScheduler {
+public class PaymentScheduler {
 
     final PaymentService paymentService;
 
-    public DroneScheduler(PaymentService paymentService) {
+    public PaymentScheduler(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
     // Every  Hour
     @Scheduled(cron = "0 0 */1 * * *")
     public void updatePayments() {
-        paymentService.updatePayments();
+        paymentService.makeBatchPayment();
     }
 
 

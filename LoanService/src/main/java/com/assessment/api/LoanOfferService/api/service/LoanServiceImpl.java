@@ -7,7 +7,6 @@ import com.assessment.api.LoanOfferService.api.entity.Loan;
 import com.assessment.api.LoanOfferService.api.mapper.LoanMapper;
 import com.assessment.api.LoanOfferService.api.repository.LoanRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -60,7 +59,6 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public LoanDto updateLoan(LoanDto loanDto) {
         Loan loan = repository.findById(loanDto.getLoanId()).orElseThrow(ResourceNotFoundException::new);
-        BeanUtils.copyProperties(loanDto, loan);
         return loanMapper.toDto(repository.save(loan));
     }
 
@@ -71,18 +69,18 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void updatePaymentStatus(Long loanId) {
+    public void updatePaymentStatus(Long loanId, LoanStatus status) {
         Loan loan = repository.findById(loanId).orElseThrow(ResourceNotFoundException::new);
-        loan.setStatus(LoanStatus.PAID);
+        loan.setStatus(status);
         repository.save(loan);
     }
 
-    private Long getLoanLimit(String accountId) {
+    private LoanLimitDto getLoanLimit(String accountId) {
 
         return webClient.get()
                 .uri("http://localhost:9094/api/wallet/" + accountId + "/loan-limit")
                 .retrieve()
-                .bodyToMono(Long.class)
+                .bodyToMono(LoanLimitDto.class)
                 .block();
     }
 
@@ -114,17 +112,20 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public List<LoanProductDto> requestLoan(LoanRequestDto loanRequestDto) {
-        if (hasActiveLoan(loanRequestDto.getUserId()))
+        if (hasActiveLoan(loanRequestDto.getCustomerId()))
             throw new ExistingLoanException("You have an existing loan.");
 
-        Long loanLimit = getLoanLimit(loanRequestDto.getWalletAccountId());
+        LoanLimitDto loanLimit = getLoanLimit(loanRequestDto.getWalletAccountId());
 
         // get user loan limit
-        return loanProductService.getLoanLadder(loanLimit);
+        return loanProductService.getLoanLadder(loanLimit.getLoanLimit());
     }
 
     @Override
     public LoanDto processLoanRequest(LoanRequestDto loanRequestDto) {
+
+        if (hasActiveLoan(loanRequestDto.getCustomerId()))
+            throw new ExistingLoanException("You have an existing loan.");
 
         LoanProductDto loanProduct = loanProductService.findById(loanRequestDto.getLoanProductId());
         float interestRate = loanProduct.getInterest();
@@ -141,8 +142,9 @@ public class LoanServiceImpl implements LoanService {
         loanDto.setStatus(LoanStatus.ACTIVE);
         loanDto.setInterest(interest);
         loanDto.setTotalAmount(totalAmount);
-        loanDto.setUserId(loanRequestDto.getUserId());
+        loanDto.setUserId(loanRequestDto.getCustomerId());
         loanDto.setCreatedOn(calendar.getTime());
+        loanDto.setWalletAccountId(loanRequestDto.getWalletAccountId());
 
         calendar.add(Calendar.DAY_OF_MONTH, tenure);
         loanDto.setDueDate(calendar.getTime());

@@ -1,10 +1,10 @@
 package com.assessment.PaymentService.api.mapper;
 
-import com.assessment.CommonService.api.dto.PaymentDto;
+import com.assessment.CommonService.api.dto.TransactionDto;
 import com.assessment.CommonService.api.mapper.EntityMapper;
-import com.assessment.PaymentService.api.entity.Payment;
+import com.assessment.PaymentService.api.entity.Transaction;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PaymentMapper extends EntityMapper<PaymentDto, Payment> {
+public interface TransactionMapper extends EntityMapper<TransactionDto, Transaction> {
 }

@@ -3,6 +3,7 @@ package com.assessment.api.LoanOfferService.api.controller;
 import com.assessment.CommonService.api.dto.LoanDto;
 import com.assessment.CommonService.api.dto.LoanProductDto;
 import com.assessment.CommonService.api.dto.LoanRequestDto;
+import com.assessment.CommonService.api.enums.LoanStatus;
 import com.assessment.api.LoanOfferService.api.service.LoanService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,10 @@ public class LoanController {
         return ResponseEntity.ok(loan);
     }
 
-    @GetMapping("/{loanId}/update-payment-status")
-    public ResponseEntity<Void> updatePaymentStatus(@PathVariable("loanId") Long loanId) {
-        loanService.updatePaymentStatus(loanId);
-        return ResponseEntity.ok().build();
+    @GetMapping("/{loanId}/update-payment-status/{status}")
+    public ResponseEntity<String> updatePaymentStatus(@PathVariable("loanId") Long loanId,@PathVariable("status") LoanStatus status ) {
+        loanService.updatePaymentStatus(loanId, status);
+        return ResponseEntity.ok("PAID");
     }
 
 
@@ -40,7 +41,7 @@ public class LoanController {
         return ResponseEntity.ok(loanProducts);
     }
 
-    @PostMapping("/request")
+    @PostMapping("/process-loan-request")
     public ResponseEntity<LoanDto> processLoanRequest(@RequestBody LoanRequestDto loanRequestDto) {
         LoanDto loan = loanService.processLoanRequest(loanRequestDto);
         return ResponseEntity.ok(loan);

@@ -25,5 +25,5 @@ public interface LoanService {
 
     public LoanDto createLoan(LoanDto loanDto);
 
-    void updatePaymentStatus(Long loanId);
+    void updatePaymentStatus(Long loanId, LoanStatus status);
 }

@@ -2,6 +2,7 @@ package com.assessment.api.LoanOfferService.api.controller;
 
 import com.assessment.CommonService.api.dto.LoanProductDto;
 import com.assessment.CommonService.api.dto.LoanRequestDto;
+import com.assessment.CommonService.api.enums.LoanStatus;
 import com.assessment.api.LoanOfferService.LoanBuilder;
 import com.assessment.api.LoanOfferService.LoanProductBuilder;
 import com.assessment.api.LoanOfferService.LoanRequestDtoBuilder;
@@ -24,7 +25,7 @@ import java.util.List;
 class LoanControllerTest {
 
     private static final String ENDPOINT_URL = "/api/loan";
-    private static final String PAYMENT_STATUS_ENDPOINT_URL = "/api/loan/{loanId}/update-payment-status";
+    private static final String PAYMENT_STATUS_ENDPOINT_URL = "/api/loan/{loanId}/update-payment-status/{status}";
 
 
     @InjectMocks
@@ -66,11 +67,12 @@ class LoanControllerTest {
 
     @Test
     void updatePaymentStatus() throws Exception {
-        Mockito.doNothing().when(loanService).updatePaymentStatus(ArgumentMatchers.anyLong());
+        Mockito.doNothing().when(loanService).updatePaymentStatus(ArgumentMatchers.anyLong(), ArgumentMatchers.eq(LoanStatus.PAID));
 
-        mockMvc.perform(MockMvcRequestBuilders.get(PAYMENT_STATUS_ENDPOINT_URL.replace("{loanId}", "1")))
+        String url = PAYMENT_STATUS_ENDPOINT_URL.replace("{loanId}", "1").replace("{status}",LoanStatus.PAID.name());
+        mockMvc.perform(MockMvcRequestBuilders.get(url))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(loanService, Mockito.times(1)).updatePaymentStatus(1L);
+        Mockito.verify(loanService, Mockito.times(1)).updatePaymentStatus(1L, LoanStatus.PAID);
         Mockito.verifyNoMoreInteractions(loanService);
     }
 
@@ -108,7 +110,7 @@ class LoanControllerTest {
     void processLoanRequest() throws Exception {
         Mockito.when(loanService.processLoanRequest(ArgumentMatchers.any(LoanRequestDto.class))).thenReturn(LoanBuilder.getDto());
         mockMvc.perform(
-                        MockMvcRequestBuilders.post(ENDPOINT_URL + "/request")
+                        MockMvcRequestBuilders.post(ENDPOINT_URL + "/process-loan-request")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(LoanRequestDtoBuilder.getDto())))
                 .andExpectAll(

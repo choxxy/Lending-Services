@@ -1,5 +1,6 @@
 package com.assessment.MobileWalletService.api.service;
 
+import com.assessment.CommonService.api.dto.LoanLimitDto;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,14 +10,14 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class AccountServiceImpl implements AccountService {
-    public AccountServiceImpl() {
+public class WalletServiceImpl implements WalletService {
+    public WalletServiceImpl() {
     }
 
     @Override
-    public long getLoanLimit(String accountId) {
+    public LoanLimitDto getLoanLimit(String accountId) {
         List<Long> limits = Lists.newArrayList(1000L, 1500L, 2000L, 2500L);
         Collections.shuffle(limits);
-        return limits.get(0);
+        return new LoanLimitDto(accountId, limits.get(0));
     }
 }

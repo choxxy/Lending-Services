@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class PaymentDto {
-    private Long Id;
+    private Long id;
     private Long loanId;
     private String walletAccountId;
     private Date entryDate;

@@ -1,75 +1,35 @@
 package com.assessment.PaymentService.api.service;
 
-import com.assessment.CommonService.api.dto.PaymentDto;
-import com.assessment.PaymentService.api.entity.Payment;
+import com.assessment.CommonService.api.dto.TransactionDto;
 import com.assessment.PaymentService.api.entity.Transaction;
-import com.assessment.PaymentService.api.mapper.PaymentMapper;
-import com.assessment.PaymentService.api.repository.PaymentRepository;
+import com.assessment.PaymentService.api.mapper.TransactionMapper;
+import com.assessment.PaymentService.api.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Service
 @Transactional
-public class PaymentServiceImpl implements PaymentService {
-    private final PaymentRepository repository;
-    private final PaymentMapper paymentMapper;
+public class TransactionServiceImpl implements TransactionService {
+    private final TransactionRepository repository;
+    private final TransactionMapper mapper;
 
-    public PaymentServiceImpl(PaymentRepository repository, PaymentMapper paymentMapper) {
+    public TransactionServiceImpl(TransactionRepository repository, TransactionMapper mapper) {
         this.repository = repository;
-        this.paymentMapper = paymentMapper;
-    }
-
-    public PaymentDto save(PaymentDto paymentDto) {
-        Payment entity = paymentMapper.toEntity(paymentDto);
-        return paymentMapper.toDto(repository.save(entity));
-    }
-
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    public PaymentDto findById(Long id) {
-        return paymentMapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
-    }
-
-    public Page<PaymentDto> findByCondition(PaymentDto paymentDto, Pageable pageable) {
-        Page<Payment> entityPage = repository.findAll(pageable);
-        List<Payment> entities = entityPage.getContent();
-        return new PageImpl<>(paymentMapper.toDto(entities), pageable, entityPage.getTotalElements());
-    }
-
-    public PaymentDto update(PaymentDto paymentDto, Long id) {
-        PaymentDto data = findById(id);
-        Payment entity = paymentMapper.toEntity(paymentDto);
-        BeanUtils.copyProperties(data, entity);
-        return save(paymentMapper.toDto(entity));
+        this.mapper = mapper;
     }
 
     @Override
-    public void updatePayments() {
-        //check loan due and attempt payments from wallet.
-        // save transaction to transaction table and send notification
+    public TransactionDto insert(TransactionDto dto) {
+        Transaction entity = mapper.toEntity(dto);
+        return mapper.toDto(repository.save(entity));
     }
 
     @Override
-    public void makePayment(PaymentDto paymentDto) {
-        Payment payment = repository.findById(paymentDto.getId()).orElseThrow(ResourceNotFoundException::new);
-        Transaction transaction = new Transaction();
-        transaction.setAmount(payment.getBalance());
-        transaction.setEntryDate(new Date());
-        transaction.setPaymentId(payment.getId());
-
-
-
+    public List<TransactionDto> findByPaymentId(Long paymentId) {
+        return mapper.toDto(repository.findByPaymentId(paymentId));
     }
 }
