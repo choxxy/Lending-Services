@@ -10,7 +10,7 @@
 
 ### Steps
 
-* Clone the repository from Github (git@github.com:choxxy/Lending-Services.git) to a local directory.
+* Clone the repository from Github to a local directory.
 
 * Ensure that the required software dependencies are installed on the system, including Java, maven and IDE.
 
